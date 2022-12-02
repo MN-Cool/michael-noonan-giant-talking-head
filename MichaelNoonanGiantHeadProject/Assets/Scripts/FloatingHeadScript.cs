@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class FloatingHeadScript : MonoBehaviour
 {
+    public Animator headAnimator;
+
     void Start()
     {
-        
+        headAnimator = GetComponent<Animator>();
     }
 
     private void Update()

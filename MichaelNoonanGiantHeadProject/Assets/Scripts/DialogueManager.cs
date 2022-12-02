@@ -8,6 +8,7 @@ public class DialogueManager : MonoBehaviour
     public Image actorImage;
     public Text actorName;
     public Text messageText;
+    public AudioClip audio;
     public RectTransform dialogueBox;
 
     Message[] currentMessages;
@@ -29,6 +30,7 @@ public class DialogueManager : MonoBehaviour
     {
         Message messageToDisplay = currentMessages[activeMessage];
         messageText.text = messageToDisplay.message;
+        audio = messageToDisplay.audio;
 
         Actor actorToDisplay = currentActors[messageToDisplay.actorID];
         actorName.text = actorToDisplay.name;
@@ -47,7 +49,8 @@ public class DialogueManager : MonoBehaviour
         else
         {
             isActive = false;
-            dialogueBox.LeanScale(Vector3.one, 0.5f).setEaseInOutExpo();
+            dialogueBox.transform.localScale = Vector3.zero;
+            Debug.Log("This conversation is over!");
         }
     }
 
