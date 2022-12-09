@@ -5,16 +5,19 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    public FloatingHeadScript floatingHead;
     public Image actorImage;
     public Text actorName;
     public Text messageText;
-    public AudioClip audio;
     public RectTransform dialogueBox;
 
     Message[] currentMessages;
     Actor[] currentActors;
     int activeMessage = 0;
     public static bool isActive = false;
+
+    [SerializeField] private AudioClip dialogueAudio;
+    private AudioSource audioManager;
 
     public void OpenDialogue(Message[] messages, Actor[] actors)
     {
@@ -30,11 +33,13 @@ public class DialogueManager : MonoBehaviour
     {
         Message messageToDisplay = currentMessages[activeMessage];
         messageText.text = messageToDisplay.message;
-        audio = messageToDisplay.audio;
 
         Actor actorToDisplay = currentActors[messageToDisplay.actorID];
         actorName.text = actorToDisplay.name;
         actorImage.sprite = actorToDisplay.sprite;
+
+        floatingHead.HeadTalking();
+        audioManager.PlayOneShot(dialogueAudio);
 
         AnimateTextColor();
     }
@@ -49,6 +54,7 @@ public class DialogueManager : MonoBehaviour
         else
         {
             isActive = false;
+            floatingHead.HeadStopTalking();
             dialogueBox.transform.localScale = Vector3.zero;
             Debug.Log("This conversation is over!");
         }
@@ -58,6 +64,11 @@ public class DialogueManager : MonoBehaviour
     {
         LeanTween.textAlpha(messageText.rectTransform, 0, 0);
         LeanTween.textAlpha(messageText.rectTransform, 1, 0.5f);
+    }
+
+    void Awake()
+    {
+        audioManager = this.gameObject.AddComponent<AudioSource>();
     }
 
     void Start()
