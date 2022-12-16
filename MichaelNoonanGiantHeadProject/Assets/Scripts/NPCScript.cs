@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NPCScript : MonoBehaviour
 {
-    public DialogueTrigger trigger;
-
     public Animator headAnimator;
 
     void Start()
@@ -18,7 +16,6 @@ public class NPCScript : MonoBehaviour
         if(collision.gameObject.CompareTag("Head") == true)
         {
             headAnimator.SetLayerWeight(headAnimator.GetLayerIndex("Turning Layer"), 1f);
-            trigger.StartDialogue();
         } 
     }
 
