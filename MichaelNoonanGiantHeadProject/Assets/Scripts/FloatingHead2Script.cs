@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FloatingHead2Script : MonoBehaviour
 {
+    public InputActionReference rightControllerInteractRef = null;
     public Animator headAnimator;
+    public DialogueManager2 dialogueManger2;
+
+    void Awake()
+    {
+        rightControllerInteractRef.action.started += Activate;
+    }
 
     void Start()
     {
@@ -25,5 +33,15 @@ public class FloatingHead2Script : MonoBehaviour
     public void HeadStopTalking()
     {
         headAnimator.SetLayerWeight(headAnimator.GetLayerIndex("Talking Layer"), 0);
+    }
+
+    private void OnDestroy()
+    {
+        rightControllerInteractRef.action.started -= Activate;
+    }
+
+    private void Activate(InputAction.CallbackContext ctx)
+    {
+
     }
 }
