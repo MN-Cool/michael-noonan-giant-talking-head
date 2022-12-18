@@ -76,9 +76,9 @@ public class DialogueManager2 : MonoBehaviour
         dialogueBox.transform.localScale = Vector3.zero;
     }
 
-    void Update()
+    public void NextMessageActive()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isActive == true)
+        if (isActive == true)
         {
             NextMessage();
         }

@@ -6,12 +6,15 @@ using UnityEngine.InputSystem;
 public class FloatingHeadScript : MonoBehaviour
 {
     public InputActionReference leftControllerInteractRef = null;
+    public InputActionReference leftControllerInteractRef2 = null;
     public Animator headAnimator;
-    public DialogueManager dialogueManger;
+    public DialogueManager dialogueManager;
+    private DialogueTrigger dialogueTrigger;
 
     void Awake()
     {
-        leftControllerInteractRef.action.started += Activate;
+        leftControllerInteractRef.action.started += Select;
+        leftControllerInteractRef2.action.started += Activate;
     }
 
     void Start()
@@ -35,13 +38,13 @@ public class FloatingHeadScript : MonoBehaviour
         headAnimator.SetLayerWeight(headAnimator.GetLayerIndex("Talking Layer"), 0);
     }
 
-    private void OnDestroy()
+    private void Select(InputAction.CallbackContext ctx)
     {
-        leftControllerInteractRef.action.started -= Activate;
+        dialogueTrigger.StartDialogue();
     }
 
     private void Activate(InputAction.CallbackContext ctx)
     {
-
+        dialogueManager.NextMessageActive();
     }
 }
