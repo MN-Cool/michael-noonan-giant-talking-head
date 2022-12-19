@@ -38,12 +38,12 @@ public class FloatingHeadScript : MonoBehaviour
         headAnimator.SetLayerWeight(headAnimator.GetLayerIndex("Talking Layer"), 0);
     }
 
-    private void Select(InputAction.CallbackContext ctx)
+    public void Select(InputAction.CallbackContext ctx)
     {
         dialogueTrigger.StartDialogue();
     }
 
-    private void Activate(InputAction.CallbackContext ctx)
+    public void Activate(InputAction.CallbackContext ctx)
     {
         dialogueManager.NextMessageActive();
     }
