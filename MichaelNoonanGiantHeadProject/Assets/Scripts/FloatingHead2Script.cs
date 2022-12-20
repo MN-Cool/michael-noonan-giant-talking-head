@@ -11,6 +11,8 @@ public class FloatingHead2Script : MonoBehaviour
     public DialogueManager2 dialogueManager2;
     private DialogueTrigger2 dialogueTrigger2;
 
+    public GameObject tutorialScreen;
+
     void Awake()
     {
         rightControllerInteractRef.action.started += Select;
@@ -40,6 +42,7 @@ public class FloatingHead2Script : MonoBehaviour
 
     public void Select(InputAction.CallbackContext ctx)
     {
+        tutorialScreen.SetActive(false);
         dialogueTrigger2.StartDialogue();
     }
 
