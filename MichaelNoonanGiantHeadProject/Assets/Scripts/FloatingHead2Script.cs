@@ -15,13 +15,14 @@ public class FloatingHead2Script : MonoBehaviour
 
     void Awake()
     {
-        rightControllerInteractRef.action.started += Select;
-        rightControllerInteractRef2.action.started += Activate;
+        rightControllerInteractRef.action.performed += Select;
+        rightControllerInteractRef2.action.performed += Activate;
     }
 
     void Start()
     {
         headAnimator = GetComponent<Animator>();
+        dialogueTrigger2 = GetComponent<DialogueTrigger2>();
     }
 
     private void Update()
@@ -40,14 +41,14 @@ public class FloatingHead2Script : MonoBehaviour
         headAnimator.SetLayerWeight(headAnimator.GetLayerIndex("Talking Layer"), 0);
     }
 
-    public void Select(InputAction.CallbackContext ctx)
+    public void Select(InputAction.CallbackContext context)
     {
-        tutorialScreen.SetActive(false);
-        dialogueTrigger2.StartDialogue();
+            tutorialScreen.SetActive(false);
+            dialogueTrigger2.StartDialogue();
     }
 
-    public void Activate(InputAction.CallbackContext ctx)
+    public void Activate(InputAction.CallbackContext context)
     {
-        dialogueManager2.NextMessageActive();
+            dialogueManager2.NextMessageActive();
     }
 }
